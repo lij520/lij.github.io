@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>疫情调查</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.9.0/qs.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=1eb7d25bb1961ed2b178e3d3f3026e55"></script> -->
+    <script type="text/javascript"
+        src='https://webapi.amap.com/maps?v=1.4.4&test=true&key=8e9d3050695ac868cc67257d84a5f740&plugin=AMap.ToolBar,AMap.IndoorMap'></script>
+</head>
+
+<body>
+    <div id="iCenter" style="display: none;"></div>
+    <form>
+        <table class="tables">
+            <tr class="Ftitle">
+                <th>信息上报</th>
+            </tr>
+            <tr class="Stitle">
+                <th>所属区域：</th>
+            </tr>
+            <tr class="content">
+                <th>
+                    <!-- <select style="width: 99%;height: 30px;" "id="area"></select> -->
+                    <input type="text" id="addr-show" style="width: 99%;height: 30px;">
+                    <br />
+                    <select id="prov" onchange="showCity(this)">
+                        <option>=请选择省份=</option>
+                    </select>
+                    <select id="city" onchange="showCountry(this)">
+                        <option>=请选择城市=</option>
+                    </select>
+                    <select id="country" onchange="selecCountry(this)">
+                        <option>=请选择县区=</option>
+                    </select>
+                    <button type="button" class="btns met1" onClick="showAddr()" id="button-show">确定</button>
+                </th>
+            </tr>
+            <tr class="Stitle">
+                <th>姓名：</th>
+            </tr>
+            <tr class="content">
+                <th>
+                    <select style="width: 99%;height: 30px;" id="name" onchange="MemberSelected(this)">
+                        <option>=请选择姓名=</option>
+                    </select>
+                </th>
+            </tr>
+            <tr class="Stitle">
+                <th>体温情况：</th>
+            </tr>
+            <tr class="content">
+                <td>
+                    <input type="text" name="tempreture" id="tempreture" style="width: 99%;height: 25px;" />
+                </td>
+            </tr>
+            <tr class="Stitle">
+                <th>在家情况：</th>
+            </tr>
+            <tr class="content">
+                <td>
+                    <input type="text" name="athome" id="athome" style="width: 99%;height: 25px;" />
+                </td>
+            </tr>
+            <tr class="Stitle">
+                <th>健康情况：</th>
+            </tr>
+            <tr class="content">
+                <td>
+                    <input type="text" name="health" id="health" style="width: 99%;height: 25px;" />
+                </td>
+            </tr>
+            <tr class="Stitle">
+                <th>紧密接触人：</th>
+            </tr>
+            <tr class="content" id="contact" style="background-color: white;">
+                <td style="width: 100%;font-size: 12px;">
+                    <span>接触人姓名:</span><input type="text" name="contactname" id="contactname"
+                        style="width: 13%;height: 25px;" />
+                    <span>联系电话:</span><input type="text" name="contactphone" id="contactphone"
+                        style="width: 16%;height: 25px;" />
+                    <span>与接触人关系:</span><select style="width: 10%;height: 30px;" id="contactrelation"></select>
+                    <input type="button" class="btn btn-success" value="增加" id="addTable" onclick="add_tr(this)"
+                        style="width: 7%;font-size: 12px;" />
+                    <input type="button" class="btn btn-success" value="删除" id="deleteTable" onclick="del_tr(this)"
+                        style="width: 7%;font-size: 12px;" />
+                    <br />
+                </td>
+            </tr>
+            <tr class="Stitle">
+                <th>定位：</th>
+            </tr>
+            <tr class="content" style="background-color: white;font-size: 14px;">
+                <td>
+                    <!-- <button type="button" style="width: 99%;height: 25px;" onclick="getLocation()">点击定位</button> -->
+                    经度：<input type="text" name="longitude" id="longitude" style="width: 22%;" />
+                    维度：<input type="text" name="latitude" id="latitude" style="width: 22%;" />
+                    <button type="button" style="width: 20%;height: 25px;" onclick="getLocation()">点击定位</button>
+                </td>
+            </tr>
+            <tr class="Stitle">
+                <th>生活需求：</th>
+            </tr>
+            <tr class="content">
+                <td>
+                    <textarea rows="5" cols="47" name="reqlive" id="reqlive"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3">
+                    <input type="button" value="提交" style="width: 20%;" onclick="Submit()">
+                    <input type="reset" value="重置" style="width: 20%;">
+                </td>
+            <tr>
+            <tr>
+                <td style="height: 50px;"></td>
+            </tr>
+        </table>
+    </form>
+    <!-- <div id="map" style="display: none;"></div> -->
+
+    <script src="city.js"></script>
+    <script src="method.js"></script>
+    <script>
+        var posLoction = [];
+        //关系选择
+        var relationdata = [
+            { key: 0, value: "朋友" }, { key: 1, value: "爸爸" },
+            { key: 2, value: "妈妈" }, { key: 3, value: "丈夫" },
+            { key: 4, value: "妻子" }, { key: 5, value: "儿子" },
+            { key: 6, value: "女儿" }, { key: 7, value: "公公" },
+            { key: 8, value: "婆婆" }, { key: 9, value: "丈人" },
+            { key: 10, value: "丈母" }, { key: 11, value: "其他" }
+        ];
+        var selectRelation = document.getElementById("contactrelation");
+        for (var i = 0; i < relationdata.length; i++) {
+            selectRelation[i] = new Option(relationdata[i].value, relationdata[i].key);
+        }
+
+        // function getLocation() {
+        //     const mapdiv = document.getElementById('iCenter');
+        //     mapdiv.style.display = 'block';
+        //     var mapObj = new AMap.Map('iCenter');
+        //     mapObj.plugin('AMap.Geolocation', function () {
+        //         geolocation = new AMap.Geolocation({
+        //             enableHighAccuracy: true, // 是否使用高精度定位，默认:true
+        //             timeout: 10000,           // 超过10秒后停止定位，默认：无穷大
+        //             maximumAge: 0,            // 定位结果缓存0毫秒，默认：0
+        //             convert: true,            // 自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+        //             showButton: true,         // 显示定位按钮，默认：true
+        //             buttonPosition: 'LB',     // 定位按钮停靠位置，默认：'LB'，左下角
+        //             buttonOffset: new AMap.Pixel(10, 20), // 定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+        //             showMarker: true,         // 定位成功后在定位到的位置显示点标记，默认：true
+        //             showCircle: true,         // 定位成功后用圆圈表示定位精度范围，默认：true
+        //             panToLocation: true,      // 定位成功后将定位到的位置作为地图中心点，默认：true
+        //             zoomToAccuracy: true       // 定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        //         });
+        //         mapObj.addControl(geolocation);
+        //         geolocation.getCurrentPosition();
+        //         AMap.event.addListener(geolocation, 'complete', onComplete); // 返回定位信息
+        //         AMap.event.addListener(geolocation, 'error', onError);       // 返回定位出错信息
+        //     });
+
+        //     function onComplete(obj) {
+        //         var res = '经纬度：' + obj.position +
+        //             '\n精度范围：' + obj.accuracy +
+        //             '米\n定位结果的来源：' + obj.location_type +
+        //             '\n状态信息：' + obj.info +
+        //             '\n地址：' + obj.formattedAddress +
+        //             '\n地址信息：' + JSON.stringify(obj.addressComponent, null, 4);
+        //         // alert(res);
+        //         $('#latitude').val(obj.posLoction);
+        //         $('#longitude').val(obj.posLoction);
+        //         mapdiv.style.display = 'none';
+        //     }
+
+        //     function onError(obj) {
+        //         $('#longitude').val('123.2654');
+        //         $('#latitude').val('23.564');
+        //         alert(obj.info + '--' + obj.message);
+        //         console.log(obj);
+        //         mapdiv.style.display = 'none';
+        //     }
+        // }
+        var x = document.getElementById("iCenter");
+        function getLocation() {
+            if (navigator.geolocation) {
+                alert("浏览器支持H5地理定位");
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            }
+            else {
+                // alert("浏览器不支持H5地理定位");
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function showPosition(position) {
+            console.log('position', position);
+            $('#latitude').val(position.coords.latitude);
+            $('#longitude').val(position.coords.longitude);
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br />Longitude: " + position.coords.longitude;
+        }
+        function showError(error) {
+            console.log('error', error);
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
+        function add_tr(obj) {
+            var tr = $(obj).parent().parent();
+            tr.after(tr.clone());
+        }
+
+        function del_tr(obj) {
+            const trobj = document.getElementsByTagName('tr');
+            for (var g = trobj.length - 6; g > 14; g--) {
+                $(obj).parent().parent().remove();
+            }
+        }
+
+        function Submit() {
+            let tempreture = document.getElementById("tempreture").value,
+                athome = document.getElementById("athome").value,
+                health = document.getElementById("health").value,
+                reqlive = document.getElementById("reqlive").value,
+                area = document.getElementById("addr-show").value,
+                name = document.getElementById("name").value,
+                longitude = document.getElementById("longitude").value,
+                latitude = document.getElementById("latitude").value,
+                contactname = [], contactphone = [], contactrelation = [];
+            var inputnumber = document.getElementsByTagName('input');
+            var selectnumber = document.getElementsByTagName('select');
+            for (var m = 4; m < inputnumber.length - 6; m++) {
+                // console.log('inputmunber', inputnumber[m].value, m);
+                if (m % 2 === 0 && inputnumber[m].value !== "增加") {
+                    contactname.push(inputnumber[m].value);
+                } else if (m % 2 === 1 && inputnumber[m].value !== "删除") {
+                    contactphone.push(inputnumber[m].value)
+                }
+            }
+            for (var t = 4; t < selectnumber.length; t++) {
+                contactrelation.push(selectnumber[t].value)
+            }
+
+            console.log(tempreture, athome, health, reqlive, area, name, longitude, latitude, contactname, contactphone, contactrelation);
+            var contactObervse = [];
+            for (var r = 0; r < contactname.length; r++) {
+                contactObervse.push({
+                    "name": contactname[r],
+                    "phone": contactphone[r],
+                    "relation": Number(contactrelation[r])
+                })
+            }
+            console.log('contactObervse', contactObervse);
+            // var dailyHealth = new FormData();
+            // dailyHealth.append("bodyTemperature",Number(tempreture));
+            // dailyHealth.append("dailyNeeds",reqlive);
+            // dailyHealth.append("healthCondition",health);
+            // dailyHealth.append("latitude",Number(latitude));
+            // dailyHealth.append("longitude",Number(longitude));
+            // dailyHealth.append("observersContactPersonList",contactObervse);
+            // dailyHealth.append("registrationFormId",name);
+            // dailyHealth.append("situationAtHome",athome);
+            // dailyHealth.append("");
+
+            var dailyHealth = {
+                "bodyTemperature": Number(tempreture),
+                "dailyNeeds": reqlive,
+                "healthCondition": health,
+                "latitude": Number(latitude),
+                "longitude": Number(longitude),
+                "observersContactPersonList": contactObervse,
+                "registrationFormId": name,
+                "situationAtHome": athome
+            }
+            console.log('dailyhealth', dailyHealth);
+            if (name && name !== "=请选择姓名=") {
+                $.ajax({
+                    type: 'post',
+                    url: 'http://10.206.142.236:9020/reportDailyHealth',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dailyHealth),
+                    success: function (res) {
+                        console.log('resupload', res);
+                    },
+                    error: function (res) {
+                        console.log('数据获取失败', res)
+                    }
+                })
+            }
+        }
+    </script>
+
+</body>
+
+</html>
