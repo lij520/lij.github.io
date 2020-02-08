@@ -192,7 +192,7 @@
         var x = document.getElementById("iCenter");
         function getLocation() {
             if (navigator.geolocation) {
-                alert("浏览器支持H5地理定位");
+                // alert("浏览器支持H5地理定位");
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             }
             else {
@@ -301,6 +301,10 @@
                     data: JSON.stringify(dailyHealth),
                     success: function (res) {
                         console.log('resupload', res);
+                        if(res.result===0){
+                            alert('信息上报成功');
+                            window.close();
+                        }
                     },
                     error: function (res) {
                         console.log('数据获取失败', res)
