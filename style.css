@@ -4,36 +4,23 @@ body,html,* {
     width: 100%;
     height: 90%;
 }
-@media screen and (max-width :1380px){
-    .tables {
-        margin: 20px auto;
-        border: 1px solid black;
-        width: 90%;
-        /* width: 550px; */
-        height: 100%;
-        background-color: rgba(177, 241, 243, 0.8);
-    }
-}
-@media screen and (max-width :650px){
-    .tables {
-        margin: 20px auto;
-        border: 1px solid black;
-        width: 90%;
-        /* width: 550px; */
-        height: 100%;
-        background-color: rgba(177, 241, 243, 0.8);
-    }
-}
 
-@media screen and (max-width :480px){
+/* @media screen and (max-width :480px){
     .tables {
         margin: 20px auto;
         border: 1px solid black;
         width: 90%;
-        /* width: 550px; */
         height: 100%;
         background-color: rgba(177, 241, 243, 0.8);
     }
+} */
+.tables {
+    margin: 20px auto;
+    border: 1px solid black;
+    /* width: 90%; */
+    width: 550px;
+    height: 100%;
+    background-color: rgba(177, 241, 243, 0.8);
 }
 
 .Ftitle {
