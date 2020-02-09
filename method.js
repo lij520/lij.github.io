@@ -75,6 +75,7 @@ function selecCountry(obj) {
     current.country = obj.options[obj.selectedIndex].value;
     if ((current.city != null) && (current.country != null)) {
         btn.disabled = false;
+        showAddr();
     }
 }
  

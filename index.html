@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=640, maximum-scale=1.0, user-scalable=no" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <title>疫情调查</title>
@@ -19,18 +20,20 @@
 <body>
     <div id="iCenter" style="display: none;"></div>
     <form>
+        <div class="titleF">
+            信息上报
+        </div>
         <table class="tables">
-            <tr class="Ftitle">
+            <!-- <tr class="Ftitle">
                 <th>信息上报</th>
-            </tr>
+            </tr> -->
             <tr class="Stitle">
                 <th>所属区域：</th>
             </tr>
             <tr class="content">
                 <th>
                     <!-- <select style="width: 99%;height: 30px;" "id="area"></select> -->
-                    <input type="text" id="addr-show" style="width: 99%;height: 30px;">
-                    <br />
+                    
                     <select id="prov" onchange="showCity(this)">
                         <option>=请选择省份=</option>
                     </select>
@@ -40,7 +43,10 @@
                     <select id="country" onchange="selecCountry(this)">
                         <option>=请选择县区=</option>
                     </select>
-                    <button type="button" class="btns met1" onClick="showAddr()" id="button-show">确定</button>
+                    <button type="button" class="btns met1" onClick="showAddr()" id="button-show" style="display: none;">确定</button>
+                    <br />
+                    <input type="text" id="addr-show" style="width: 99%;height: 30px;display: none;">
+                    <input type="text" id="addr-show02" style="width: 99%;height: 30px;" placeholder="请输入您的详细地址...">
                 </th>
             </tr>
             <tr class="Stitle">
@@ -58,7 +64,7 @@
             </tr>
             <tr class="content">
                 <td>
-                    <input type="text" name="tempreture" id="tempreture" style="width: 99%;height: 25px;" />
+                    <input type="text" name="tempreture" id="tempreture" style="width: 99%;height: 25px;" placeholder="请输入您的体温情况..."/>
                 </td>
             </tr>
             <tr class="Stitle">
@@ -66,7 +72,7 @@
             </tr>
             <tr class="content">
                 <td>
-                    <input type="text" name="athome" id="athome" style="width: 99%;height: 25px;" />
+                    <input type="text" name="athome" id="athome" style="width: 99%;height: 25px;" placeholder="请输入您的在家情况..."/>
                 </td>
             </tr>
             <tr class="Stitle">
@@ -74,7 +80,7 @@
             </tr>
             <tr class="content">
                 <td>
-                    <input type="text" name="health" id="health" style="width: 99%;height: 25px;" />
+                    <input type="text" name="health" id="health" style="width: 99%;height: 25px;" placeholder="请输入您的健康情况..."/>
                 </td>
             </tr>
             <tr class="Stitle">
@@ -83,14 +89,14 @@
             <tr class="content" id="contact" style="background-color: white;">
                 <td style="width: 100%;font-size: 12px;">
                     <span>接触人姓名:</span><input type="text" name="contactname" id="contactname"
-                        style="width: 13%;height: 25px;" />
+                        style="width: 35%;height: 25px;" />
                     <span>联系电话:</span><input type="text" name="contactphone" id="contactphone"
-                        style="width: 16%;height: 25px;" />
-                    <span>与接触人关系:</span><select style="width: 10%;height: 30px;" id="contactrelation"></select>
+                        style="width: 35%;height: 25px;" />
+                    <span>与接触人关系:</span><select style="width: 31%;height: 30px;" id="contactrelation"></select>
                     <input type="button" class="btn btn-success" value="增加" id="addTable" onclick="add_tr(this)"
-                        style="width: 7%;font-size: 12px;" />
+                        style="margin-left: 13%;width: 12%;font-size: 12px;background-color: rgba(105, 135, 255, 1);border: none;" />
                     <input type="button" class="btn btn-success" value="删除" id="deleteTable" onclick="del_tr(this)"
-                        style="width: 7%;font-size: 12px;" />
+                        style="width: 12%;font-size: 12px;background-color: red;border: none;" />
                     <br />
                 </td>
             </tr>
@@ -102,7 +108,7 @@
                     <!-- <button type="button" style="width: 99%;height: 25px;" onclick="getLocation()">点击定位</button> -->
                     经度：<input type="text" name="longitude" id="longitude" style="width: 22%;" />
                     维度：<input type="text" name="latitude" id="latitude" style="width: 22%;" />
-                    <button type="button" style="width: 20%;height: 25px;" onclick="getLocation()">点击定位</button>
+                    <button type="button" style="width: 20%;height: 25px;background-color: rgba(105, 135, 255, 1);border: none;" onclick="getLocation()">点击定位</button>
                 </td>
             </tr>
             <tr class="Stitle">
@@ -110,22 +116,28 @@
             </tr>
             <tr class="content">
                 <td>
-                    <textarea rows="5" cols="47" name="reqlive" id="reqlive"></textarea>
+                    <textarea rows="5" cols="47" name="reqlive" id="reqlive" style="width:99%;" placeholder="请输入您的生活需求..."></textarea>
                 </td>
             </tr>
             <tr>
                 <td align="center" colspan="3">
-                    <input type="button" value="提交" style="width: 20%;" onclick="Submit()">
-                    <input type="reset" value="重置" style="width: 20%;">
+                    <input type="button" value="提交" style="width: 20%;background-color: rgba(254, 175, 32, 1);border: none;" onclick="Submit()">
+                    <input type="reset" value="重置" style="width: 20%;background-color: rgba(105, 135, 255, 1);border: none;">
                 </td>
             <tr>
-            <tr>
+            <!-- <tr>
                 <td style="height: 50px;"></td>
-            </tr>
+            </tr> -->
         </table>
     </form>
     <!-- <div id="map" style="display: none;"></div> -->
-
+    <script>
+        $(window).bind('resize load', function () {
+            $("body").css("zoom", $(window).width() / 640);
+            $("body").css("display", "block");
+            $("body").css("zoom", $(window).width() / 640);
+        });
+    </script>
     <script src="city.js"></script>
     <script src="method.js"></script>
     <script>
@@ -192,11 +204,11 @@
         var x = document.getElementById("iCenter");
         function getLocation() {
             if (navigator.geolocation) {
-                // alert("浏览器支持H5地理定位");
+                alert("浏览器支持H5地理定位");
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             }
             else {
-                // alert("浏览器不支持H5地理定位");
+                alert("浏览器不支持H5地理定位");
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }
         }
@@ -208,7 +220,7 @@
                 "<br />Longitude: " + position.coords.longitude;
         }
         function showError(error) {
-            console.log('error', error);
+            alert(error);
             switch (error.code) {
                 case error.PERMISSION_DENIED:
                     x.innerHTML = "User denied the request for Geolocation."
@@ -231,7 +243,9 @@
 
         function del_tr(obj) {
             const trobj = document.getElementsByTagName('tr');
-            for (var g = trobj.length - 6; g > 14; g--) {
+            // console.log('trobj',trobj.length);
+            for (var g = trobj.length - 3; g > 15; g--) {
+                console.log('g',g)
                 $(obj).parent().parent().remove();
             }
         }
@@ -248,11 +262,13 @@
                 contactname = [], contactphone = [], contactrelation = [];
             var inputnumber = document.getElementsByTagName('input');
             var selectnumber = document.getElementsByTagName('select');
-            for (var m = 4; m < inputnumber.length - 6; m++) {
+            let xiangxiarea = document.getElementById("addr-show02").value;
+            console.log('xiangxiarea',xiangxiarea)
+            for (var m = 5; m < inputnumber.length - 6; m++) {
                 // console.log('inputmunber', inputnumber[m].value, m);
-                if (m % 2 === 0 && inputnumber[m].value !== "增加") {
+                if (m % 2 === 1 && inputnumber[m].value !== "增加") {
                     contactname.push(inputnumber[m].value);
-                } else if (m % 2 === 1 && inputnumber[m].value !== "删除") {
+                } else if (m % 2 === 0 && inputnumber[m].value !== "删除") {
                     contactphone.push(inputnumber[m].value)
                 }
             }
@@ -270,16 +286,6 @@
                 })
             }
             console.log('contactObervse', contactObervse);
-            // var dailyHealth = new FormData();
-            // dailyHealth.append("bodyTemperature",Number(tempreture));
-            // dailyHealth.append("dailyNeeds",reqlive);
-            // dailyHealth.append("healthCondition",health);
-            // dailyHealth.append("latitude",Number(latitude));
-            // dailyHealth.append("longitude",Number(longitude));
-            // dailyHealth.append("observersContactPersonList",contactObervse);
-            // dailyHealth.append("registrationFormId",name);
-            // dailyHealth.append("situationAtHome",athome);
-            // dailyHealth.append("");
 
             var dailyHealth = {
                 "bodyTemperature": Number(tempreture),
@@ -301,7 +307,7 @@
                     data: JSON.stringify(dailyHealth),
                     success: function (res) {
                         console.log('resupload', res);
-                        if(res.result===0){
+                        if (res.result === 0) {
                             alert('信息上报成功');
                             window.close();
                         }
