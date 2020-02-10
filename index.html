@@ -249,7 +249,7 @@
         function del_tr(obj) {
             const trobj = document.getElementsByTagName('tr');
             // console.log('trobj',trobj.length);
-            for (var g = trobj.length - 3; g > 15; g--) {
+            for (var g = trobj.length - 3; g >= 15; g--) {
                 console.log('g', g)
                 $(obj).parent().parent().remove();
             }
