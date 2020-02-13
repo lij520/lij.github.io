@@ -7,134 +7,132 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
-    <title>疫情调查</title>
+    <title>留观人员情况上报</title>
     <link rel="stylesheet" href="style.css">
-    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="jquery-1.11.3.min.js"></script>
     <script src="https://cdn.bootcss.com/qs/6.9.0/qs.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=1eb7d25bb1961ed2b178e3d3f3026e55"></script> -->
-    <!-- <script type="text/javascript" src='https://webapi.amap.com/maps?v=1.4.4&test=true&key=8e9d3050695ac868cc67257d84a5f740&plugin=AMap.ToolBar,AMap.IndoorMap'></script> -->
+    <script type="text/javascript"
+        src='https://webapi.amap.com/maps?v=1.4.4&test=true&key=8e9d3050695ac868cc67257d84a5f740&plugin=AMap.ToolBar,AMap.IndoorMap'></script>
 </head>
 
 <body>
     <div id="iCenter" style="display: none;"></div>
-    <div class="container">
-    <form>
-        <div class="titleF">
-            信息上报
+    <div id="Idcard" class="Idcard">
+        <div class="box">
+            <p style="margin-bottom: 2vh;font-size: 30px;font-weight: 600;">请输入身份证号码</p>
+            <input type="text" name="identify" id="identify" style="width: 60%;margin-bottom: 2vh;height: 4vh;">
+            <br>
+            <input type="button" value="确定"
+                style="border:1px solid rgba(72, 139, 255, 1);background:rgba(72, 139, 255, 1);width:20%;font-size: 30px;font-weight: 600;height: 5vh;"
+                onclick="showMain()">
         </div>
-        <table class="tables">
-            <!-- <tr class="Ftitle">
-                <th>信息上报</th>
-            </tr> -->
-            <tr class="Stitle">
-                <th>所属区域：</th>
-            </tr>
-            <tr class="content">
-                <th>
+    </div>
+    <div class="container" id="container" style="display: none;">
+        <div class="titleF">
+            <div style="display: inline-block;vertical-align: middle;">每日健康情况上报</div>
+        </div>
+        <div class="table">
+            <!-- <div class="content">
+                <span>
+                    <label class="stars">户籍地址：</label>
                     <select id="prov" onchange="showCity(this)">
-                        <option>=请选择省份=</option>
+                        <option>请选择省份</option>
                     </select>
                     <select id="city" onchange="showCountry(this)">
-                        <option>=请选择城市=</option>
+                        <option>请选择城市</option>
                     </select>
                     <select id="country" onchange="selecCountry(this)">
-                        <option>=请选择县区=</option>
+                        <option>请选择县区</option>
                     </select>
-                    <button type="button" class="btns met1" onClick="showAddr()" id="button-show"
-                        style="display: none;">确定</button>
+                    <input type="button" class="btns met1" onClick="showAddr()" id="button-show"
+                        style="display: none;"></input>
                     <br />
                     <input type="text" id="addr-show" style="width: 99%;display: none;">
-                    <input type="text" id="addr-show02" style="width: 99%;" placeholder="请输入您的详细地址...">
-                </th>
-            </tr>
-            <tr class="Stitle">
-                <th>姓名：</th>
-            </tr>
-            <tr class="content">
-                <th>
-                    <select style="width: 99%;" id="name" onchange="MemberSelected(this)">
-                        <option>=请选择姓名=</option>
-                    </select>
-                </th>
-            </tr>
-            <tr class="Stitle">
-                <th>体温情况：</th>
-            </tr>
-            <tr class="content">
-                <td>
-                    <input type="text" name="tempreture" id="tempreture" style="width: 99%;"
+                    <input type="text" id="addr-show02" style="width: 98%;" placeholder="请输入您的详细地址...">
+                </span>
+            </div> -->
+            <div class="content">
+                <span>
+                    <label class="stars">姓名：</label>
+                    <input type="text" id="name" placeholder="请输入姓名" style="width: 74%;">
+                    <!-- <select style="width: 87%;" id="name" onchange="MemberSelected(this)">
+                        <option>请选择姓名</option>
+                    </select> -->
+                </span>
+            </div>
+            <div class="content">
+                <span>
+                    <label class="stars">体温情况：</label>
+                    <input type="text" name="tempreture" id="tempreture" style="width: 70%;"
                         placeholder="请输入您的体温情况..." />
-                </td>
-            </tr>
-            <tr class="Stitle">
-                <th>在家情况：</th>
-            </tr>
-            <tr class="content">
-                <td>
-                    <input type="text" name="athome" id="athome" style="width: 99%;"
-                        placeholder="请输入您的在家情况..." />
-                </td>
-            </tr>
-            <tr class="Stitle">
-                <th>健康情况：</th>
-            </tr>
-            <tr class="content">
-                <td>
-                    <input type="text" name="health" id="health" style="width: 99%;"
-                        placeholder="请输入您的健康情况..." />
-                </td>
-            </tr>
-            <tr class="Stitle">
-                <th>紧密接触人：</th>
-            </tr>
-            <tr class="content" id="contact" style="background-color: white;">
-                <td style="width: 100%;font-size: 12px;">
-                    <span>接触人姓名:</span><input type="text" name="contactname" id="contactname"
-                        style="width: 38%;" />
-                    <span>联系电话:</span><input type="text" name="contactphone" id="contactphone"
-                        style="width: 38%;" />
-                    <span>与接触人关系:</span><select style="width: 36%;" id="contactrelation"></select>
-                    <input type="button" class="btn btn-success" value="增加" id="addTable" onclick="add_tr(this)"
-                        style="margin-left: 13%;width: 12%;font-size: 12px;background-color: rgba(105, 135, 255, 1);border: none;" />
-                    <input type="button" class="btn btn-success" value="删除" id="deleteTable" onclick="del_tr(this)"
-                        style="width: 12%;font-size: 12px;background-color: red;border: none;" />
-                    <br />
-                </td>
-            </tr>
-            <tr class="Stitle">
-                <th>定位：</th>
-            </tr>
-            <tr class="content" style="background-color: white;font-size: 14px;">
-                <td>
+                </span>
+            </div>
+            <div class="content">
+                <span>
+                    <label class="stars">在家情况：</label>
+                    <input type="text" name="athome" id="athome" style="width: 70%;" placeholder="请输入您的在家情况..." />
+                </span>
+            </div>
+            <div class="content">
+                <span>
+                    <label class="stars">健康情况：</label>
+                    <input type="text" name="health" id="health" style="width: 70%;" placeholder="请输入您的健康情况..." />
+                </span>
+            </div>
+            <div class="content">
+                <label class="stars">紧密接触人：</label>
+                <span>
+                    <div style="width: 100%;font-size: 12px;">
+                        <div style="margin-bottom: 6px;margin-top: 5px;">
+                            <label style="font-size: 25px;">接触人姓名：</label><input type="text" name="contactname" id="contactname"
+                                style="width: 24%;" placeholder="请输入姓名" />
+                            <label style="margin-left: 2%;font-size: 25px;">联系电话：</label><input type="text" name="contactphone"
+                                id="contactphone" style="width: 28%;" placeholder="请输入电话" />
+                        </div>
+                        <label style="font-size: 25px;">与接触人关系：</label><select style="width: 32%;" id="contactrelation"></select>
+
+                        <input type="button" class="btn btn-success" value="删除" id="deleteTable" onclick="del_tr(this)"
+                            style="float: right;margin-right:5%;width: 10%;height:4vh;font-size: 20px;border: none;color: white;" />
+                        <input type="button" class="btn btn-success" value="增加" id="addTable" onclick="add_tr(this)"
+                            style="float: right;margin-right:2%;width: 10%;height:4vh;font-size: 20px;background-color: rgba(105, 135, 255, 1);border: none;color: white;" />
+                        <br />
+
+                    </div>
+                </span>
+            </div>
+            <div class="content">
+                <span>
+                    <label class="stars">隔离位置：</label>
+                    <!-- <span> -->
                     <!-- <button type="button" style="width: 99%;height: 25px;" onclick="getLocation()">点击定位</button> -->
-                    经度：<input type="text" name="longitude" id="longitude" style="width: 22%;" />
-                    维度：<input type="text" name="latitude" id="latitude" style="width: 22%;" />
-                    <button type="button"
-                        style="width: 20%;height:4vh;background-color: rgba(105, 135, 255, 1);border: none;"
-                        onclick="getLocation()">点击定位</button>
-                </td>
-            </tr>
-            <tr class="Stitle">
-                <th>生活需求：</th>
-            </tr>
-            <tr class="content">
-                <td>
-                    <textarea rows="6" cols="47" name="reqlive" id="reqlive" style="width:99%;"
-                        placeholder="请输入您的生活需求..."></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" colspan="3">
+                    <input type="text" name="longitude" id="longitude" style="width: 22%;display: none;" value="经度：" />
+                    <input type="text" name="latitude" id="latitude" style="width: 22%;display: none;" value="维度：" />
+                    <input type="text" name="isozone" id="isozone" style="width: 54%;" placeholder="请输入您当前的位置信息..." />
+                    <input type="button" id="position"
+                        style="width: 16%;height:4vh;border: none;font-size: 24px;color: white;"
+                        onclick="getLocation()" value="点击定位" />
+                    <!-- </span> -->
+                </span>
+            </div>
+            <div class="content" style="border-bottom: none;">
+                <span>
+                    <label>生活需求或投诉建议：</label>
+                    <textarea rows="6" cols="47" name="reqlive" id="reqlive"
+                        style="width:98%;border: 1px solid #403e3e;font-size: 28px;" placeholder="请输入您的生活需求..."></textarea>
+                </span>
+            </div>
+            <div style="text-align: center;margin-top: 3vh;">
+                <span>
                     <input type="button" value="提交"
-                        style="width: 20%;background-color: rgba(254, 175, 32, 1);border: none;" onclick="Submit()">
-                    <input type="reset" value="重置"
-                        style="width: 20%;background-color: rgba(105, 135, 255, 1);border: none;">
-                </td>
-            </tr>
-        </table>
-    </form>  
-</div>
+                        style="border: none;width: 18%;height:4vh;font-size: 30px;color: white;" id="submits" onclick="Submit()">
+                    <input type="reset" value="重置" id="resets"
+                        style="border: none;width: 18%;height:4vh;font-size: 30px;color: white;">
+                </span>
+            </div>
+        </div>
+    </div>
     <!-- <div id="map" style="display: none;"></div> -->
     <script>
         $(window).bind('resize load', function () {
@@ -142,9 +140,51 @@
             $("body").css("display", "block");
             $("body").css("zoom", $(window).width() / 640);
         });
+        var unSelected = "white";
+        var selected = "white";
+        $(function () {
+            $("select").css("background-color", unSelected);
+            $("option").css("background-color", selected);
+            $("select").change(function () {
+                var selItem = $(this).val();
+                if (selItem == $(this).find('option:first').val()) {
+                    $(this).css("background-color", unSelected);
+                } else {
+                    $(this).css("background-color", selected);
+                }
+            });
+        })
+        function showMain() {
+            var fbtn = document.getElementById("Idcard")
+            var mains = document.getElementById("container");
+            var btnvalue = document.getElementById("identify").value;
+            // var nameP = document.getElementById("name");
+            console.log('btnvalue', btnvalue);
+            $.ajax({
+                type: 'get',
+                url: 'http://36.248.23.130:8095/observers/selectPersonDetail',
+                data: { id: btnvalue },
+                success: function (res) {
+                    if (res.data) {
+                        console.log('res', res.data);
+                        const data = res.data;
+                        if (data.type === 3) {
+                            fbtn.style.display = "none";
+                            mains.style.display = "block";
+                            $("#name").val(data.name);
+                        }
+                    } else {
+                        alert("请输入正确的身份证号码！");
+                    }
+                },
+                error: function (res) {
+                    console.log('error', res);
+                }
+            })
+        }
     </script>
-    <script src="city.js"></script>
-    <script src="method.js"></script>
+    <!-- <script src="city.js"></script> -->
+    <!-- <script src="method.js"></script> -->
     <script>
         var posLoction = [];
         //关系选择
@@ -161,95 +201,93 @@
             selectRelation[i] = new Option(relationdata[i].value, relationdata[i].key);
         }
 
+        function getLocation() {
+            const mapdiv = document.getElementById('iCenter');
+            mapdiv.style.display = 'block';
+            var mapObj = new AMap.Map('iCenter');
+            mapObj.plugin('AMap.Geolocation', function () {
+                geolocation = new AMap.Geolocation({
+                    enableHighAccuracy: true, // 是否使用高精度定位，默认:true
+                    timeout: 10000,           // 超过10秒后停止定位，默认：无穷大
+                    maximumAge: 0,            // 定位结果缓存0毫秒，默认：0
+                    convert: true,            // 自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+                    showButton: true,         // 显示定位按钮，默认：true
+                    buttonPosition: 'LB',     // 定位按钮停靠位置，默认：'LB'，左下角
+                    buttonOffset: new AMap.Pixel(10, 20), // 定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                    showMarker: true,         // 定位成功后在定位到的位置显示点标记，默认：true
+                    showCircle: true,         // 定位成功后用圆圈表示定位精度范围，默认：true
+                    panToLocation: true,      // 定位成功后将定位到的位置作为地图中心点，默认：true
+                    zoomToAccuracy: true       // 定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                });
+                mapObj.addControl(geolocation);
+                geolocation.getCurrentPosition();
+                AMap.event.addListener(geolocation, 'complete', onComplete); // 返回定位信息
+                AMap.event.addListener(geolocation, 'error', onError);       // 返回定位出错信息
+            });
+
+            function onComplete(obj) {
+                var res = '经纬度：' + obj.position +
+                    '\n精度范围：' + obj.accuracy +
+                    '米\n定位结果的来源：' + obj.location_type +
+                    '\n状态信息：' + obj.info +
+                    '\n地址：' + obj.formattedAddress;
+                alert(res);
+                $('#isozone').val(obj.formattedAddress);
+                $('#longitude').val(obj.position.lng);
+                $('#latitude').val(obj.position.lat);
+                mapdiv.style.display = 'none';
+            }
+
+            function onError(obj) {
+                alert(obj.info + '--' + obj.message);
+                console.log(obj);
+                mapdiv.style.display = 'none';
+            }
+        }
+        // var x = document.getElementById("iCenter");
         // function getLocation() {
-        //     const mapdiv = document.getElementById('iCenter');
-        //     mapdiv.style.display = 'block';
-        //     var mapObj = new AMap.Map('iCenter');
-        //     mapObj.plugin('AMap.Geolocation', function () {
-        //         geolocation = new AMap.Geolocation({
-        //             enableHighAccuracy: true, // 是否使用高精度定位，默认:true
-        //             timeout: 10000,           // 超过10秒后停止定位，默认：无穷大
-        //             maximumAge: 0,            // 定位结果缓存0毫秒，默认：0
-        //             convert: true,            // 自动偏移坐标，偏移后的坐标为高德坐标，默认：true
-        //             showButton: true,         // 显示定位按钮，默认：true
-        //             buttonPosition: 'LB',     // 定位按钮停靠位置，默认：'LB'，左下角
-        //             buttonOffset: new AMap.Pixel(10, 20), // 定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-        //             showMarker: true,         // 定位成功后在定位到的位置显示点标记，默认：true
-        //             showCircle: true,         // 定位成功后用圆圈表示定位精度范围，默认：true
-        //             panToLocation: true,      // 定位成功后将定位到的位置作为地图中心点，默认：true
-        //             zoomToAccuracy: true       // 定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-        //         });
-        //         mapObj.addControl(geolocation);
-        //         geolocation.getCurrentPosition();
-        //         AMap.event.addListener(geolocation, 'complete', onComplete); // 返回定位信息
-        //         AMap.event.addListener(geolocation, 'error', onError);       // 返回定位出错信息
-        //     });
-
-        //     function onComplete(obj) {
-        //         var res = '经纬度：' + obj.position +
-        //             '\n精度范围：' + obj.accuracy +
-        //             '米\n定位结果的来源：' + obj.location_type +
-        //             '\n状态信息：' + obj.info +
-        //             '\n地址：' + obj.formattedAddress +
-        //             '\n地址信息：' + JSON.stringify(obj.addressComponent, null, 4);
-        //         // alert(res);
-        //         $('#latitude').val(obj.posLoction);
-        //         $('#longitude').val(obj.posLoction);
-        //         mapdiv.style.display = 'none';
+        //     if (navigator.geolocation) {
+        //         alert("浏览器支持H5地理定位");
+        //         navigator.geolocation.getCurrentPosition(showPosition, showError);
         //     }
-
-        //     function onError(obj) {
-        //         $('#longitude').val('123.2654');
-        //         $('#latitude').val('23.564');
-        //         alert(obj.info + '--' + obj.message);
-        //         console.log(obj);
-        //         mapdiv.style.display = 'none';
+        //     else {
+        //         alert("浏览器不支持H5地理定位");
+        //         x.innerHTML = "Geolocation is not supported by this browser.";
         //     }
         // }
-        var x = document.getElementById("iCenter");
-        function getLocation() {
-            if (navigator.geolocation) {
-                alert("浏览器支持H5地理定位");
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            }
-            else {
-                alert("浏览器不支持H5地理定位");
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-        function showPosition(position) {
-            console.log('position', position);
-            $('#latitude').val(position.coords.latitude);
-            $('#longitude').val(position.coords.longitude);
-            x.innerHTML = "Latitude: " + position.coords.latitude +
-                "<br />Longitude: " + position.coords.longitude;
-        }
-        function showError(error) {
-            alert(error);
-            switch (error.code) {
-                case error.PERMISSION_DENIED:
-                    x.innerHTML = "User denied the request for Geolocation."
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    x.innerHTML = "Location information is unavailable."
-                    break;
-                case error.TIMEOUT:
-                    x.innerHTML = "The request to get user location timed out."
-                    break;
-                case error.UNKNOWN_ERROR:
-                    x.innerHTML = "An unknown error occurred."
-                    break;
-            }
-        }
+        // function showPosition(position) {
+        //     console.log('position', position);
+        //     $('#latitude').val(position.coords.latitude);
+        //     $('#longitude').val(position.coords.longitude);
+        //     x.innerHTML = "Latitude: " + position.coords.latitude +
+        //         "<br />Longitude: " + position.coords.longitude;
+        // }
+        // function showError(error) {
+        //     alert(error);
+        //     switch (error.code) {
+        //         case error.PERMISSION_DENIED:
+        //             x.innerHTML = "User denied the request for Geolocation."
+        //             break;
+        //         case error.POSITION_UNAVAILABLE:
+        //             x.innerHTML = "Location information is unavailable."
+        //             break;
+        //         case error.TIMEOUT:
+        //             x.innerHTML = "The request to get user location timed out."
+        //             break;
+        //         case error.UNKNOWN_ERROR:
+        //             x.innerHTML = "An unknown error occurred."
+        //             break;
+        //     }
+        // }
         function add_tr(obj) {
             var tr = $(obj).parent().parent();
             tr.after(tr.clone());
         }
 
         function del_tr(obj) {
-            const trobj = document.getElementsByTagName('tr');
+            const trobj = document.getElementsByTagName('span');
             // console.log('trobj',trobj.length);
-            for (var g = trobj.length - 3; g >= 15; g--) {
+            for (var g = trobj.length - 2; g >= 7; g--) {
                 console.log('g', g)
                 $(obj).parent().parent().remove();
             }
@@ -260,20 +298,21 @@
                 athome = document.getElementById("athome").value,
                 health = document.getElementById("health").value,
                 reqlive = document.getElementById("reqlive").value,
-                area = document.getElementById("addr-show").value,
+                // area = document.getElementById("addr-show").value,
                 name = document.getElementById("name").value,
                 longitude = document.getElementById("longitude").value,
                 latitude = document.getElementById("latitude").value,
+                isoZone = document.getElementById("isozone").value,
                 contactname = [], contactphone = [], contactrelation = [];
             var inputnumber = document.getElementsByTagName('input');
             var selectnumber = document.getElementsByTagName('select');
-            let xiangxiarea = document.getElementById("addr-show02").value;
-            console.log('xiangxiarea', xiangxiarea)
-            for (var m = 5; m < inputnumber.length - 6; m++) {
-                // console.log('inputmunber', inputnumber[m].value, m);
-                if (m % 2 === 1 && inputnumber[m].value !== "增加") {
+            // let xiangxiarea = document.getElementById("addr-show02").value;
+            // console.log('xiangxiarea', xiangxiarea)
+            for (var m = 8; m < inputnumber.length - 6; m++) {
+                console.log('inputmunber', inputnumber[m].value, m);
+                if (m % 2 === 0 && inputnumber[m].value !== "删除") {
                     contactname.push(inputnumber[m].value);
-                } else if (m % 2 === 0 && inputnumber[m].value !== "删除") {
+                } else if (m % 2 === 1 && inputnumber[m].value !== "增加") {
                     contactphone.push(inputnumber[m].value)
                 }
             }
@@ -281,7 +320,7 @@
                 contactrelation.push(selectnumber[t].value)
             }
 
-            console.log(tempreture, athome, health, reqlive, area, name, longitude, latitude, contactname, contactphone, contactrelation);
+            console.log(tempreture, athome, health, reqlive, name, longitude, latitude, contactname, contactphone, contactrelation);
             var contactObervse = [];
             for (var r = 0; r < contactname.length; r++) {
                 contactObervse.push({
@@ -293,6 +332,7 @@
             console.log('contactObervse', contactObervse);
 
             var dailyHealth = {
+                "address": isoZone,
                 "bodyTemperature": Number(tempreture),
                 "dailyNeeds": reqlive,
                 "healthCondition": health,
@@ -304,26 +344,37 @@
             }
             // alert('submit')
             console.log('dailyhealth', dailyHealth);
-            if (name&& name !== "=请选择姓名=") {//
+            if (name && name !== "=请选择姓名=") {//
                 // alert(dailyHealth);
-                $.ajax({
-                    type: 'post',
-                    url: 'http://10.206.142.236:9020/reportDailyHealth',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(dailyHealth),
-                    success: function (res) {
-                        console.log('resupload', res);
-                        if (res.result === 0) {
-                            alert('信息上报成功');
-                            window.open("about:blank","_self").close();
+                if (!dailyHealth.bodyTemperature) {
+                    alert("请输入您的体温！");
+                } else if (!dailyHealth.situationAtHome) {
+                    alert("请输入您的在家情况！");
+                } else if (!dailyHealth.healthCondition) {
+                    alert("请输入您的健康状况！");
+                } else if (!dailyHealth.observersContactPersonList.length!==0) {
+                    alert("请添加您的紧密接触人信息！");
+                } else if (!isoZone) {
+                    alert("请添加您的隔离位置！");
+                } else {
+                    $.ajax({
+                        type: 'post',
+                        url: 'http://10.206.142.236:9020/reportDailyHealth',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(dailyHealth),
+                        success: function (res) {
+                            console.log('resupload', res);
+                            if (res.result === 0) {
+                                alert('信息上报成功');
+                                // window.open("about:blank", "_self").close();
+                            }
+                        },
+                        error: function (res) {
+                            console.log('数据获取失败', res)
                         }
-                    },
-                    error: function (res) {
-                        console.log('数据获取失败', res)
-                    }
-                })
-                
+                    })
+                }
             }
         }
     </script>
