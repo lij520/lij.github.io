@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=640, maximum-scale=1.0, user-scalable=no" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <title>留观人员情况上报</title>
     <link rel="stylesheet" href="style.css">
@@ -34,32 +32,10 @@
             <div style="display: inline-block;vertical-align: middle;">每日健康情况上报</div>
         </div>
         <div class="table">
-            <!-- <div class="content">
-                <span>
-                    <label class="stars">户籍地址：</label>
-                    <select id="prov" onchange="showCity(this)">
-                        <option>请选择省份</option>
-                    </select>
-                    <select id="city" onchange="showCountry(this)">
-                        <option>请选择城市</option>
-                    </select>
-                    <select id="country" onchange="selecCountry(this)">
-                        <option>请选择县区</option>
-                    </select>
-                    <input type="button" class="btns met1" onClick="showAddr()" id="button-show"
-                        style="display: none;"></input>
-                    <br />
-                    <input type="text" id="addr-show" style="width: 99%;display: none;">
-                    <input type="text" id="addr-show02" style="width: 98%;" placeholder="请输入您的详细地址...">
-                </span>
-            </div> -->
             <div class="content">
                 <span>
                     <label class="stars">姓名：</label>
                     <input type="text" id="name" placeholder="请输入姓名" style="width: 74%;">
-                    <!-- <select style="width: 87%;" id="name" onchange="MemberSelected(this)">
-                        <option>请选择姓名</option>
-                    </select> -->
                 </span>
             </div>
             <div class="content">
@@ -105,15 +81,12 @@
             <div class="content">
                 <span>
                     <label class="stars">隔离位置：</label>
-                    <!-- <span> -->
-                    <!-- <button type="button" style="width: 99%;height: 25px;" onclick="getLocation()">点击定位</button> -->
                     <input type="text" name="longitude" id="longitude" style="width: 22%;display: none;" value="经度：" />
                     <input type="text" name="latitude" id="latitude" style="width: 22%;display: none;" value="维度：" />
                     <input type="text" name="isozone" id="isozone" style="width: 54%;" placeholder="请输入您当前的位置信息..." />
                     <input type="button" id="position"
                         style="width: 16%;height:4vh;border: none;font-size: 24px;color: white;"
                         onclick="getLocation()" value="点击定位" />
-                    <!-- </span> -->
                 </span>
             </div>
             <div class="content" style="border-bottom: none;">
@@ -133,7 +106,6 @@
             </div>
         </div>
     </div>
-    <!-- <div id="map" style="display: none;"></div> -->
     <script>
         $(window).bind('resize load', function () {
             $("body").css("zoom", $(window).width() / 640);
@@ -183,8 +155,6 @@
             })
         }
     </script>
-    <!-- <script src="city.js"></script> -->
-    <!-- <script src="method.js"></script> -->
     <script>
         var posLoction = [];
         //关系选择
@@ -244,41 +214,7 @@
                 mapdiv.style.display = 'none';
             }
         }
-        // var x = document.getElementById("iCenter");
-        // function getLocation() {
-        //     if (navigator.geolocation) {
-        //         alert("浏览器支持H5地理定位");
-        //         navigator.geolocation.getCurrentPosition(showPosition, showError);
-        //     }
-        //     else {
-        //         alert("浏览器不支持H5地理定位");
-        //         x.innerHTML = "Geolocation is not supported by this browser.";
-        //     }
-        // }
-        // function showPosition(position) {
-        //     console.log('position', position);
-        //     $('#latitude').val(position.coords.latitude);
-        //     $('#longitude').val(position.coords.longitude);
-        //     x.innerHTML = "Latitude: " + position.coords.latitude +
-        //         "<br />Longitude: " + position.coords.longitude;
-        // }
-        // function showError(error) {
-        //     alert(error);
-        //     switch (error.code) {
-        //         case error.PERMISSION_DENIED:
-        //             x.innerHTML = "User denied the request for Geolocation."
-        //             break;
-        //         case error.POSITION_UNAVAILABLE:
-        //             x.innerHTML = "Location information is unavailable."
-        //             break;
-        //         case error.TIMEOUT:
-        //             x.innerHTML = "The request to get user location timed out."
-        //             break;
-        //         case error.UNKNOWN_ERROR:
-        //             x.innerHTML = "An unknown error occurred."
-        //             break;
-        //     }
-        // }
+        
         function add_tr(obj) {
             var tr = $(obj).parent().parent();
             tr.after(tr.clone());
@@ -286,7 +222,7 @@
 
         function del_tr(obj) {
             const trobj = document.getElementsByTagName('span');
-            // console.log('trobj',trobj.length);
+            console.log('trobj',trobj.length,trobj);
             for (var g = trobj.length - 2; g >= 7; g--) {
                 console.log('g', g)
                 $(obj).parent().parent().remove();
@@ -298,7 +234,6 @@
                 athome = document.getElementById("athome").value,
                 health = document.getElementById("health").value,
                 reqlive = document.getElementById("reqlive").value,
-                // area = document.getElementById("addr-show").value,
                 name = document.getElementById("name").value,
                 longitude = document.getElementById("longitude").value,
                 latitude = document.getElementById("latitude").value,
@@ -306,9 +241,8 @@
                 contactname = [], contactphone = [], contactrelation = [];
             var inputnumber = document.getElementsByTagName('input');
             var selectnumber = document.getElementsByTagName('select');
-            // let xiangxiarea = document.getElementById("addr-show02").value;
-            // console.log('xiangxiarea', xiangxiarea)
-            for (var m = 8; m < inputnumber.length - 6; m++) {
+            var idcardnumber = document.getElementById("identify").value;
+            for (var m = 6; m < inputnumber.length - 6; m++) {
                 console.log('inputmunber', inputnumber[m].value, m);
                 if (m % 2 === 0 && inputnumber[m].value !== "删除") {
                     contactname.push(inputnumber[m].value);
@@ -316,7 +250,8 @@
                     contactphone.push(inputnumber[m].value)
                 }
             }
-            for (var t = 4; t < selectnumber.length; t++) {
+            for (var t = 0; t < selectnumber.length; t++) {
+                console.log("selectnumber",selectnumber[t].value,t)
                 contactrelation.push(selectnumber[t].value)
             }
 
@@ -339,7 +274,7 @@
                 "latitude": Number(latitude),
                 "longitude": Number(longitude),
                 "observersContactPersonList": contactObervse,
-                "registrationFormId": name,
+                "registrationFormId": idcardnumber,
                 "situationAtHome": athome
             }
             // alert('submit')
@@ -352,7 +287,7 @@
                     alert("请输入您的在家情况！");
                 } else if (!dailyHealth.healthCondition) {
                     alert("请输入您的健康状况！");
-                } else if (!dailyHealth.observersContactPersonList.length!==0) {
+                } else if (!dailyHealth.observersContactPersonList[0].name) {
                     alert("请添加您的紧密接触人信息！");
                 } else if (!isoZone) {
                     alert("请添加您的隔离位置！");
@@ -367,7 +302,7 @@
                             console.log('resupload', res);
                             if (res.result === 0) {
                                 alert('信息上报成功');
-                                // window.open("about:blank", "_self").close();
+                                window.open("about:blank", "_self").close();
                             }
                         },
                         error: function (res) {
