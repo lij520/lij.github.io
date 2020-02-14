@@ -57,6 +57,8 @@ select {
     border-radius: 5px;
     border: 0;
     font-size: 24px;
+    text-align: center;
+    text-align-last: center;
 }
 #iCenter{
     width:40vh; 
@@ -145,7 +147,9 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
     font-size: 26px;
     color: #e0dfdf;
 }
-
+#contactrelation option{
+    text-align: center;
+}
 #deleteTable,#submits{
     background-image: linear-gradient(to right, rgba(254, 200, 136, 1) , rgba(254, 175, 32, 1));
     background-image: -webkit-linear-gradient(to right, rgba(254, 200, 136, 1) , rgba(254, 175, 32, 1));

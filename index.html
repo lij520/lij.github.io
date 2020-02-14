@@ -61,14 +61,16 @@
                 <label class="stars">紧密接触人：</label>
                 <span>
                     <div style="width: 100%;font-size: 12px;">
-                        <div style="margin-bottom: 6px;margin-top: 5px;">
-                            <label style="font-size: 26px;">接触人姓名：</label><input type="text" name="contactname" id="contactname"
-                                style="width: 22%;font-size: 24px;" placeholder="请输入姓名" />
-                            <label style="margin-left: 2%;font-size: 26px;">联系电话：</label><input type="text" name="contactphone"
-                                id="contactphone" style="width: 27%;font-size: 24px;" placeholder="请输入电话" />
-                        </div>
-                        <label style="font-size: 26px;">与接触人关系：</label><select style="width: 32%;font-size: 24px;" id="contactrelation"></select>
-
+                        <p style="margin-bottom: 6px;margin-top: 5px;">
+                            <label style="font-size: 26px;color: gray;">接触人姓名：</label><input type="text" name="contactname" id="contactname"
+                                style="width: 65%;font-size: 24px;" placeholder="请输入姓名" />
+                        </p>
+                        <p>
+                            <label style="font-size: 26px;color: gray;">联系电话：</label><input type="text" name="contactphone"
+                                id="contactphone" style="width: 72%;font-size: 24px;" placeholder="请输入电话" />
+                        </p>
+                        <label style="font-size: 26px;color: gray;">与接触人关系：</label><select style="width: 32%;font-size: 24px;" id="contactrelation"></select>
+    
                         <input type="button" class="btn btn-success" value="删除" id="deleteTable" onclick="del_tr(this)"
                             style="float: right;margin-right:5%;width: 10%;height:4vh;font-size: 20px;border: none;color: white;" />
                         <input type="button" class="btn btn-success" value="增加" id="addTable" onclick="add_tr(this)"
