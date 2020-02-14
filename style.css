@@ -16,7 +16,7 @@ form{
     height: 10vh;
     background-color: rgba(72, 139, 255, 1);
     text-align: center;
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 600;
     color: white;
     line-height: 8vh;
@@ -56,7 +56,7 @@ select {
     height: 3vh;
     border-radius: 5px;
     border: 0;
-    font-size: 26px;
+    font-size: 24px;
 }
 #iCenter{
     width:40vh; 
@@ -74,7 +74,8 @@ input{
     /* height: 30px; */
     height: 3vh;
     /* border: 1px solid #999595; */
-    font-size: 28px;
+    font-size: 26px;
+    text-align: center;
 }
 .container {
     display: flex;
@@ -92,7 +93,7 @@ input{
     /* padding: 0.5vh 0; */
     padding-top: 0.8vh;
     border-bottom: 1px solid #b0b0a8;
-    font-size: 30px;
+    font-size: 28px;
 }
 .Idcard{
     height: 100vh;
@@ -109,17 +110,42 @@ input{
     text-align: center;
 }
 input::-webkit-input-placeholder{
-    font-size: 28px;
+    font-size: 26px;
+    text-align: center;
+    color: #e0dfdf;
 }
 input::-moz-placeholder{   /* Mozilla Firefox 19+ */
-    font-size: 28px;
+    font-size: 26px;
+    text-align: center;
+    color: #e0dfdf;
 }
 input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
-    font-size: 28px;
+    font-size: 26px;
+    text-align: center;
+    color: #e0dfdf;
 }
 input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
-    font-size: 28px;
+    font-size: 26px;
+    text-align: center;
+    color: #e0dfdf;
 }
+#reqlive::-webkit-input-placeholder{
+    font-size: 26px;
+    color: #e0dfdf;
+}
+#reqlive::-moz-input-placeholder{
+    font-size: 26px;
+    color: #e0dfdf;
+}
+#reqlive:-moz-input-placeholder{
+    font-size: 26px;
+    color: #e0dfdf;
+}
+#reqlive:-ms-input-placeholder{
+    font-size: 26px;
+    color: #e0dfdf;
+}
+
 #deleteTable,#submits{
     background-image: linear-gradient(to right, rgba(254, 200, 136, 1) , rgba(254, 175, 32, 1));
     background-image: -webkit-linear-gradient(to right, rgba(254, 200, 136, 1) , rgba(254, 175, 32, 1));

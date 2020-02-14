@@ -19,11 +19,11 @@
     <div id="iCenter" style="display: none;"></div>
     <div id="Idcard" class="Idcard">
         <div class="box">
-            <p style="margin-bottom: 2vh;font-size: 30px;font-weight: 600;">请输入身份证号码</p>
+            <p style="margin-bottom: 2vh;font-size: 28px;font-weight: 600;">请输入身份证号码</p>
             <input type="text" name="identify" id="identify" style="width: 60%;margin-bottom: 2vh;height: 4vh;">
             <br>
             <input type="button" value="确定"
-                style="border:1px solid rgba(72, 139, 255, 1);background:rgba(72, 139, 255, 1);width:20%;font-size: 30px;font-weight: 600;height: 5vh;"
+                style="border:1px solid rgba(72, 139, 255, 1);background:rgba(72, 139, 255, 1);width:20%;font-size: 28px;font-weight: 600;height: 5vh;"
                 onclick="showMain()">
         </div>
     </div>
@@ -42,19 +42,19 @@
                 <span>
                     <label class="stars">体温情况：</label>
                     <input type="text" name="tempreture" id="tempreture" style="width: 70%;"
-                        placeholder="请输入您的体温情况..." />
+                        placeholder="请输入您的体温情况" />
                 </span>
             </div>
             <div class="content">
                 <span>
                     <label class="stars">在家情况：</label>
-                    <input type="text" name="athome" id="athome" style="width: 70%;" placeholder="请输入您的在家情况..." />
+                    <input type="text" name="athome" id="athome" style="width: 70%;" placeholder="请输入您的在家情况" />
                 </span>
             </div>
             <div class="content">
                 <span>
                     <label class="stars">健康情况：</label>
-                    <input type="text" name="health" id="health" style="width: 70%;" placeholder="请输入您的健康情况..." />
+                    <input type="text" name="health" id="health" style="width: 70%;" placeholder="请输入您的健康情况" />
                 </span>
             </div>
             <div class="content">
@@ -62,12 +62,12 @@
                 <span>
                     <div style="width: 100%;font-size: 12px;">
                         <div style="margin-bottom: 6px;margin-top: 5px;">
-                            <label style="font-size: 25px;">接触人姓名：</label><input type="text" name="contactname" id="contactname"
-                                style="width: 24%;" placeholder="请输入姓名" />
-                            <label style="margin-left: 2%;font-size: 25px;">联系电话：</label><input type="text" name="contactphone"
-                                id="contactphone" style="width: 28%;" placeholder="请输入电话" />
+                            <label style="font-size: 26px;">接触人姓名：</label><input type="text" name="contactname" id="contactname"
+                                style="width: 22%;font-size: 24px;" placeholder="请输入姓名" />
+                            <label style="margin-left: 2%;font-size: 26px;">联系电话：</label><input type="text" name="contactphone"
+                                id="contactphone" style="width: 27%;font-size: 24px;" placeholder="请输入电话" />
                         </div>
-                        <label style="font-size: 25px;">与接触人关系：</label><select style="width: 32%;" id="contactrelation"></select>
+                        <label style="font-size: 26px;">与接触人关系：</label><select style="width: 32%;font-size: 24px;" id="contactrelation"></select>
 
                         <input type="button" class="btn btn-success" value="删除" id="deleteTable" onclick="del_tr(this)"
                             style="float: right;margin-right:5%;width: 10%;height:4vh;font-size: 20px;border: none;color: white;" />
@@ -83,7 +83,7 @@
                     <label class="stars">隔离位置：</label>
                     <input type="text" name="longitude" id="longitude" style="width: 22%;display: none;" value="经度：" />
                     <input type="text" name="latitude" id="latitude" style="width: 22%;display: none;" value="维度：" />
-                    <input type="text" name="isozone" id="isozone" style="width: 54%;" placeholder="请输入您当前的位置信息..." />
+                    <input type="text" name="isozone" id="isozone" style="width: 54%;" placeholder="请输入您当前的位置信息" />
                     <input type="button" id="position"
                         style="width: 16%;height:4vh;border: none;font-size: 24px;color: white;"
                         onclick="getLocation()" value="点击定位" />
@@ -93,10 +93,10 @@
                 <span>
                     <label>生活需求或投诉建议：</label>
                     <textarea rows="6" cols="47" name="reqlive" id="reqlive"
-                        style="width:98%;border: 1px solid #403e3e;font-size: 28px;" placeholder="请输入您的生活需求..."></textarea>
+                        style="width:98%;border: 1px solid #403e3e;min-height: 16vh;" placeholder="请输入您的生活需求或投诉建议"></textarea>
                 </span>
             </div>
-            <div style="text-align: center;margin-top: 3vh;">
+            <div style="text-align: center;margin-top: 2vh;">
                 <span>
                     <input type="button" value="提交"
                         style="border: none;width: 18%;height:4vh;font-size: 30px;color: white;" id="submits" onclick="Submit()">
